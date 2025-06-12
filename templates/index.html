@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center mb-4">
+        <h1 class="display-4">نظام التنبؤ بالموافقة على القروض</h1>
+        <p class="lead">نظام ذكي يساعد البنوك في اتخاذ قرارات الموافقة على القروض باستخدام تقنيات التعلم الآلي</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-plus-circle display-4 text-primary mb-3"></i>
+                <h3>إضافة طلب جديد</h3>
+                <p>أدخل بيانات طلب القرض للحصول على تنبؤ فوري</p>
+                <a href="{{ url_for('add_request') }}" class="btn btn-primary">إضافة طلب</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-graph-up display-4 text-success mb-3"></i>
+                <h3>تحليل البيانات</h3>
+                <p>استكشف البيانات وتحليلها بشكل تفاعلي</p>
+                <a href="{{ url_for('eda') }}" class="btn btn-success">عرض التحليل</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-speedometer2 display-4 text-info mb-3"></i>
+                <h3>أداء النموذج</h3>
+                <p>تعرف على دقة النموذج ومقاييس الأداء</p>
+                <a href="{{ url_for('model_metrics') }}" class="btn btn-info text-white">عرض الأداء</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">مميزات النظام</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                تنبؤ فوري بقرار القرض
+                            </li>
+                            <li class="list-group-item">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                تحليل شامل للبيانات
+                            </li>
+                            <li class="list-group-item">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                واجهة سهلة الاستخدام
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                دقة عالية في التنبؤ
+                            </li>
+                            <li class="list-group-item">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                تقارير تفصيلية
+                            </li>
+                            <li class="list-group-item">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                حفظ وإدارة الطلبات
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

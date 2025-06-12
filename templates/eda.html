@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">توزيع الموافقات والرفض</h5>
+            </div>
+            <div class="card-body">
+                <div id="approval_distribution"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">توزيع دخل المتقدمين</h5>
+            </div>
+            <div class="card-body">
+                <div id="income_distribution"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">توزيع مبالغ القروض</h5>
+            </div>
+            <div class="card-body">
+                <div id="loan_amount_distribution"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">نسبة الموافقات حسب مستوى التعليم</h5>
+            </div>
+            <div class="card-body">
+                <div id="education_approval"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">تحليل الدخل المشترك</h5>
+            </div>
+            <div class="card-body">
+                <div id="coapplicant_analysis"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // تحميل الرسوم البيانية
+    var plots = {{ plots|tojson }};
+    
+    Plotly.newPlot('approval_distribution', plots.approval_distribution.data, plots.approval_distribution.layout);
+    Plotly.newPlot('income_distribution', plots.income_distribution.data, plots.income_distribution.layout);
+    Plotly.newPlot('loan_amount_distribution', plots.loan_amount_distribution.data, plots.loan_amount_distribution.layout);
+    Plotly.newPlot('education_approval', plots.education_approval.data, plots.education_approval.layout);
+    Plotly.newPlot('coapplicant_analysis', plots.coapplicant_analysis.data, plots.coapplicant_analysis.layout);
+</script>
+{% endblock %} 

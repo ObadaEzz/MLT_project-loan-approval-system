@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">قائمة طلبات القروض</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>رقم الطلب</th>
+                        <th>تاريخ الطلب</th>
+                        <th>الجنس</th>
+                        <th>الحالة الاجتماعية</th>
+                        <th>الدخل</th>
+                        <th>مبلغ القرض</th>
+                        <th>المدة</th>
+                        <th>النتيجة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                    <tr>
+                        <td>{{ request.id }}</td>
+                        <td>{{ request.request_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ 'ذكر' if request.gender == 'Male' else 'أنثى' }}</td>
+                        <td>{{ 'متزوج/ة' if request.married == 'Yes' else 'أعزب/عزباء' }}</td>
+                        <td>{{ request.applicant_income }}</td>
+                        <td>{{ request.loan_amount }}</td>
+                        <td>{{ request.loan_term }}</td>
+                        <td>
+                            <span class="badge {% if request.prediction == 'Approved' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ 'تمت الموافقة' if request.prediction == 'Approved' else 'مرفوض' }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('delete_request', id=request.id) }}" 
+                               class="btn btn-danger btn-sm" 
+                               onclick="return confirm('هل أنت متأكد من حذف هذا الطلب؟')">
+                                <i class="bi bi-trash"></i> حذف
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">مقاييس دقة النموذج</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">الدقة</h5>
+                                <h2 class="mb-0">{{ "%.1f"|format(metrics.accuracy * 100) }}%</h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">الدقة التفصيلية</h5>
+                                <h2 class="mb-0">{{ "%.1f"|format(metrics.precision * 100) }}%</h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">الاستدعاء</h5>
+                                <h2 class="mb-0">{{ "%.1f"|format(metrics.recall * 100) }}%</h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">F1 Score</h5>
+                                <h2 class="mb-0">{{ "%.1f"|format(metrics.f1 * 100) }}%</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>تفسير المقاييس:</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>الدقة (Accuracy):</strong> 
+                            نسبة التنبؤات الصحيحة من إجمالي التنبؤات.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>الدقة التفصيلية (Precision):</strong>
+                            نسبة التنبؤات الإيجابية الصحيحة من إجمالي التنبؤات الإيجابية.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>الاستدعاء (Recall):</strong>
+                            نسبة الحالات الإيجابية التي تم اكتشافها بشكل صحيح.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>F1 Score:</strong>
+                            المتوسط التوافقي بين الدقة التفصيلية والاستدعاء.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

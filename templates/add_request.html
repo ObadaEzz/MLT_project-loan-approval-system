@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">إضافة طلب قرض جديد</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('add_request') }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">الجنس</label>
+                    <select name="gender" class="form-select" required>
+                        <option value="Male">ذكر</option>
+                        <option value="Female">أنثى</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">الحالة الاجتماعية</label>
+                    <select name="married" class="form-select" required>
+                        <option value="Yes">متزوج/ة</option>
+                        <option value="No">أعزب/عزباء</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">عدد المعالين</label>
+                    <select name="dependents" class="form-select" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3+">3+</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">المستوى التعليمي</label>
+                    <select name="education" class="form-select" required>
+                        <option value="Graduate">خريج جامعي</option>
+                        <option value="Not Graduate">غير خريج جامعي</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">عمل حر</label>
+                    <select name="self_employed" class="form-select" required>
+                        <option value="Yes">نعم</option>
+                        <option value="No">لا</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">دخل مقدم الطلب</label>
+                    <input type="number" name="applicant_income" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">دخل الشريك</label>
+                    <input type="number" name="coapplicant_income" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">مبلغ القرض</label>
+                    <input type="number" name="loan_amount" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">مدة القرض (بالشهور)</label>
+                    <input type="number" name="loan_term" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">التاريخ الائتماني</label>
+                    <select name="credit_history" class="form-select" required>
+                        <option value="1">يوجد</option>
+                        <option value="0">لا يوجد</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">منطقة العقار</label>
+                <select name="property_area" class="form-select" required>
+                    <option value="Urban">حضري</option>
+                    <option value="Semiurban">شبه حضري</option>
+                    <option value="Rural">ريفي</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">تقديم الطلب</button>
+        </form>
+    </div>
+</div>
+{% endblock %} 
