@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">Date Issue Resolution</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Problem</h4>
+                <p>
+                    In the original dataset, we encountered several challenges with date handling:
+                </p>
+                <ul>
+                    <li>Inconsistent date formats</li>
+                    <li>Missing date values</li>
+                    <li>Invalid or illogical dates</li>
+                </ul>
+
+                <h4 class="mt-4">Solution</h4>
+                <p>
+                    The following steps were implemented to address the date issues:
+                </p>
+                <ol>
+                    <li>
+                        <strong>Format Standardization:</strong>
+                        <ul>
+                            <li>Converting all dates to a unified format (YYYY-MM-DD)</li>
+                            <li>Processing various date formats using Python datetime</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Missing Values Treatment:</strong>
+                        <ul>
+                            <li>Using mean dates from surrounding periods</li>
+                            <li>Using current date when no context is available</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Date Validation:</strong>
+                        <ul>
+                            <li>Ensuring dates are logical and within expected range</li>
+                            <li>Excluding unreasonable future dates</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h4 class="mt-4">Results</h4>
+                <div class="alert alert-success">
+                    <ul class="mb-0">
+                        <li>Improved data quality and reliability</li>
+                        <li>Enhanced data analysis and reporting capabilities</li>
+                        <li>Increased model prediction accuracy</li>
+                    </ul>
+                </div>
+
+                <h4 class="mt-4">Recommendations</h4>
+                <div class="alert alert-info">
+                    <ul class="mb-0">
+                        <li>Implement date validation at data entry</li>
+                        <li>Document required date format in the user interface</li>
+                        <li>Conduct regular data quality checks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
