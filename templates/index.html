@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12 text-center mb-4">
+    <h1 class="display-4">Loan Approval Prediction System</h1>
+    <p class="lead">An intelligent system helping banks make loan approval decisions using machine learning techniques
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-plus-circle display-4 text-primary mb-3"></i>
+        <h3>New Request</h3>
+        <p>Enter loan request data for instant prediction</p>
+        <a href="{{ url_for('add_request') }}" class="btn btn-primary">Add Request</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-graph-up display-4 text-success mb-3"></i>
+        <h3>Data Analysis</h3>
+        <p>Explore and analyze data interactively</p>
+        <a href="{{ url_for('eda') }}" class="btn btn-success">View Analysis</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-speedometer2 display-4 text-info mb-3"></i>
+        <h3>Model Performance</h3>
+        <p>Check model accuracy and performance metrics</p>
+        <a href="{{ url_for('model_metrics') }}" class="btn btn-info text-white">View Performance</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">System Features</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                Instant Loan Decision
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                Comprehensive Data Analysis
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                User-Friendly Interface
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                High Prediction Accuracy
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                Detailed Reports
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                Request Management
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
