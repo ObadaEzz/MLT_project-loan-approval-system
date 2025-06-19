@@ -4,6 +4,7 @@
 ---
 
 ## 🌟 نظرة عامة | Overview
+https://bankapproval.pythonanywhere.com
 نظام ذكي متكامل يعتمد على تقنيات التعلم الآلي وواجهة ويب تفاعلية (Flask) للتنبؤ بقرارات الموافقة على القروض. يتيح النظام تحليل بيانات المتقدمين، تدريب النماذج، استكشاف البيانات، وتقديم تقارير ومرئيات تفاعلية تدعم اتخاذ القرار.
 
 A smart, end-to-end system using machine learning and an interactive Flask web interface to predict loan approval decisions. The system enables data analysis, model training, EDA, and interactive reporting to support decision-making.
