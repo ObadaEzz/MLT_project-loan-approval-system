@@ -172,10 +172,12 @@ best_model_name = comparison_df.index[0]
 print(f"\nBest Model: {best_model_name}")
 print(f"Best Model Parameters: {best_models[best_model_name].get_params()}")
 
-# Save the best model
+# Save the best model and scaler
 import joblib
 joblib.dump(best_models[best_model_name], 'best_loan_model.joblib')
+joblib.dump(scaler, 'scaler.joblib')
 print("\nBest model saved as 'best_loan_model.joblib'")
+print("Scaler saved as 'scaler.joblib'")
 
 # Plot feature importance for the best model if it's a tree-based model
 if hasattr(best_models[best_model_name], 'feature_importances_'):

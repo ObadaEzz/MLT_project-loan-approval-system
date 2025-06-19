@@ -3,41 +3,52 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12 text-center mb-4">
-        <h1 class="display-4">نظام التنبؤ بالموافقة على القروض</h1>
-        <p class="lead">نظام ذكي يساعد البنوك في اتخاذ قرارات الموافقة على القروض باستخدام تقنيات التعلم الآلي</p>
+        <h1 class="display-4">Loan Approval Prediction System</h1>
+        <p class="lead">An intelligent system helping banks make loan approval decisions using machine learning techniques</p>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4 mb-4">
+    <div class="col-md-3 mb-4">
         <div class="card h-100">
             <div class="card-body text-center">
                 <i class="bi bi-plus-circle display-4 text-primary mb-3"></i>
-                <h3>إضافة طلب جديد</h3>
-                <p>أدخل بيانات طلب القرض للحصول على تنبؤ فوري</p>
-                <a href="{{ url_for('add_request') }}" class="btn btn-primary">إضافة طلب</a>
+                <h3>New Request</h3>
+                <p>Enter loan request data for instant prediction</p>
+                <a href="{{ url_for('add_request') }}" class="btn btn-primary">Add Request</a>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4 mb-4">
+    <div class="col-md-3 mb-4">
         <div class="card h-100">
             <div class="card-body text-center">
                 <i class="bi bi-graph-up display-4 text-success mb-3"></i>
-                <h3>تحليل البيانات</h3>
-                <p>استكشف البيانات وتحليلها بشكل تفاعلي</p>
-                <a href="{{ url_for('eda') }}" class="btn btn-success">عرض التحليل</a>
+                <h3>Data Analysis</h3>
+                <p>Explore and analyze data interactively</p>
+                <a href="{{ url_for('eda') }}" class="btn btn-success">View Analysis</a>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4 mb-4">
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-pie-chart display-4 text-warning mb-3"></i>
+                <h3>Interactive Charts</h3>
+                <p>Visualize data with interactive charts</p>
+                <a href="{{ url_for('charts') }}" class="btn btn-warning text-dark">View Charts</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
         <div class="card h-100">
             <div class="card-body text-center">
                 <i class="bi bi-speedometer2 display-4 text-info mb-3"></i>
-                <h3>أداء النموذج</h3>
-                <p>تعرف على دقة النموذج ومقاييس الأداء</p>
-                <a href="{{ url_for('model_metrics') }}" class="btn btn-info text-white">عرض الأداء</a>
+                <h3>Model Performance</h3>
+                <p>Check model accuracy and performance metrics</p>
+                <a href="{{ url_for('model_metrics') }}" class="btn btn-info text-white">View Performance</a>
             </div>
         </div>
     </div>
@@ -47,7 +58,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">مميزات النظام</h3>
+                <h3 class="mb-0">System Features</h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -55,15 +66,15 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <i class="bi bi-check-circle-fill text-success"></i>
-                                تنبؤ فوري بقرار القرض
+                                Instant Loan Decision
                             </li>
                             <li class="list-group-item">
                                 <i class="bi bi-check-circle-fill text-success"></i>
-                                تحليل شامل للبيانات
+                                Comprehensive Data Analysis
                             </li>
                             <li class="list-group-item">
                                 <i class="bi bi-check-circle-fill text-success"></i>
-                                واجهة سهلة الاستخدام
+                                User-Friendly Interface
                             </li>
                         </ul>
                     </div>
@@ -71,15 +82,15 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <i class="bi bi-check-circle-fill text-success"></i>
-                                دقة عالية في التنبؤ
+                                High Prediction Accuracy
                             </li>
                             <li class="list-group-item">
                                 <i class="bi bi-check-circle-fill text-success"></i>
-                                تقارير تفصيلية
+                                Detailed Reports
                             </li>
                             <li class="list-group-item">
                                 <i class="bi bi-check-circle-fill text-success"></i>
-                                حفظ وإدارة الطلبات
+                                Request Management
                             </li>
                         </ul>
                     </div>

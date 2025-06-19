@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h2 class="text-center mb-4">
+        <i class="fas fa-chart-pie me-2"></i> Interactive Charts
+    </h2>
+
+    {% if error %}
+    <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
+    </div>
+    {% else %}
+    
+    <!-- Quick Summary -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h4>Total Requests: {{ chart_data.total_requests }}</h4>
+                    <p>Click on the charts to interact with them</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approval, Gender, Marital Status Distribution -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0"><i class="fas fa-check-circle me-2"></i> Approval Distribution</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="approvalChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0"><i class="fas fa-venus-mars me-2"></i> Gender Distribution</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="genderChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0"><i class="fas fa-heart me-2"></i> Marital Status</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="marriedChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education, Area, Credit History Distribution -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h6 class="mb-0"><i class="fas fa-graduation-cap me-2"></i> Education Level</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="educationChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0"><i class="fas fa-home me-2"></i> Property Area</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="areaChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h6 class="mb-0"><i class="fas fa-credit-card me-2"></i> Credit History</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="creditChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Income vs Loan Amount Line Chart -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0"><i class="fas fa-chart-line me-2"></i> Income vs Loan Amount</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="incomeLoanChart" width="600" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approval Rates by Factors -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0"><i class="fas fa-percentage me-2"></i> Approval Rates by Factors</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>By Gender:</h6>
+                            {% for key, value in chart_data.approval_rates.items() %}
+                                {% if key.startswith('gender_') %}
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>{{ key.replace('gender_', '') }}</span>
+                                    <span class="badge bg-success">{{ value }}%</span>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-4">
+                            <h6>By Education:</h6>
+                            {% for key, value in chart_data.approval_rates.items() %}
+                                {% if key.startswith('education_') %}
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>{{ key.replace('education_', '') }}</span>
+                                    <span class="badge bg-info">{{ value }}%</span>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-4">
+                            <h6>By Area:</h6>
+                            {% for key, value in chart_data.approval_rates.items() %}
+                                {% if key.startswith('area_') %}
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>{{ key.replace('area_', '') }}</span>
+                                    <span class="badge bg-warning">{{ value }}%</span>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+    <!-- Back Buttons -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('home') }}" class="btn btn-primary">
+            <i class="fas fa-home me-2"></i>Back to Home
+        </a>
+        <a href="{{ url_for('eda') }}" class="btn btn-info ms-2">
+            <i class="fas fa-chart-bar me-2"></i>Textual Data Analysis
+        </a>
+    </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// بيانات الرسوم البيانية
+const chartData = {{ chart_data | tojson }};
+
+// رسم بياني دائري للموافقات
+new Chart(document.getElementById('approvalChart'), {
+    type: 'doughnut',
+    data: {
+        labels: chartData.approval.labels,
+        datasets: [{
+            data: chartData.approval.values,
+            backgroundColor: chartData.approval.colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 10
+                    }
+                }
+            }
+        }
+    }
+});
+
+// رسم بياني دائري للجنس
+new Chart(document.getElementById('genderChart'), {
+    type: 'pie',
+    data: {
+        labels: chartData.gender.labels,
+        datasets: [{
+            data: chartData.gender.values,
+            backgroundColor: chartData.gender.colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 10
+                    }
+                }
+            }
+        }
+    }
+});
+
+// رسم بياني دائري للتعليم
+new Chart(document.getElementById('educationChart'), {
+    type: 'doughnut',
+    data: {
+        labels: chartData.education.labels,
+        datasets: [{
+            data: chartData.education.values,
+            backgroundColor: chartData.education.colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 10
+                    }
+                }
+            }
+        }
+    }
+});
+
+// رسم بياني دائري للحالة الاجتماعية
+new Chart(document.getElementById('marriedChart'), {
+    type: 'pie',
+    data: {
+        labels: chartData.married.labels,
+        datasets: [{
+            data: chartData.married.values,
+            backgroundColor: chartData.married.colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 10
+                    }
+                }
+            }
+        }
+    }
+});
+
+// رسم بياني دائري للمنطقة
+new Chart(document.getElementById('areaChart'), {
+    type: 'doughnut',
+    data: {
+        labels: chartData.area.labels,
+        datasets: [{
+            data: chartData.area.values,
+            backgroundColor: chartData.area.colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 10
+                    }
+                }
+            }
+        }
+    }
+});
+
+// رسم بياني دائري للتاريخ الائتماني
+new Chart(document.getElementById('creditChart'), {
+    type: 'pie',
+    data: {
+        labels: chartData.credit.labels,
+        datasets: [{
+            data: chartData.credit.values,
+            backgroundColor: chartData.credit.colors,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 10
+                    }
+                }
+            }
+        }
+    }
+});
+
+// رسم بياني خطي للدخل مقابل مبلغ القرض
+new Chart(document.getElementById('incomeLoanChart'), {
+    type: 'line',
+    data: {
+        labels: chartData.income_loan.labels,
+        datasets: [{
+            label: 'Monthly Income',
+            data: chartData.income_loan.incomes,
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.1
+        }, {
+            label: 'Loan Amount',
+            data: chartData.income_loan.loan_amounts,
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    font: {
+                        size: 10
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+{% endblock %} 

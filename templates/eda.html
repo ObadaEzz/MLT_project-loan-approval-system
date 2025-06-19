@@ -1,77 +1,293 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">توزيع الموافقات والرفض</h5>
-            </div>
-            <div class="card-body">
-                <div id="approval_distribution"></div>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">
+        <i class="fas fa-chart-bar me-2"></i> Exploratory Data Analysis
+    </h2>
+
+    {% if error %}
+    <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
+    </div>
+    {% else %}
+    
+    <!-- General Summary -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i> General Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <h3 class="text-primary">{{ analysis.total_requests }}</h3>
+                            <p class="text-muted">Total Requests</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h3 class="text-success">
+                                {% if analysis.approval_distribution and analysis.approval_distribution['values'] and analysis.approval_distribution['values']|length > 0 %}
+                                    {{ analysis.approval_distribution['values'][0] }}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </h3>
+                            <p class="text-muted">Approved Requests</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h3 class="text-danger">
+                                {% if analysis.approval_distribution and analysis.approval_distribution['values'] and analysis.approval_distribution['values']|length > 1 %}
+                                    {{ analysis.approval_distribution['values'][1] }}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </h3>
+                            <p class="text-muted">Rejected Requests</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h3 class="text-info">
+                                {% if analysis.approval_distribution and analysis.approval_distribution['percentages'] and analysis.approval_distribution['percentages']|length > 0 %}
+                                    {{ "%.1f"|format(analysis.approval_distribution['percentages'][0]) }}%
+                                {% else %}
+                                    0%
+                                {% endif %}
+                            </h3>
+                            <p class="text-muted">Approval Rate</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">توزيع دخل المتقدمين</h5>
-            </div>
-            <div class="card-body">
-                <div id="income_distribution"></div>
+
+    <!-- Income Analysis -->
+    {% if analysis.income_analysis %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-dollar-sign me-2"></i> Income Analysis</h5>
+                </div>
+                <div class="card-body">
+                    <h6>General Statistics:</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Mean:</strong> {{ analysis.income_analysis.all_incomes.mean }}</li>
+                        <li><strong>Std Dev:</strong> {{ analysis.income_analysis.all_incomes.std }}</li>
+                        <li><strong>Min:</strong> {{ analysis.income_analysis.all_incomes.min }}</li>
+                        <li><strong>Max:</strong> {{ analysis.income_analysis.all_incomes.max }}</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Approval/Reject Comparison:</h6>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="text-success">Approved:</small>
+                            <div>{{ analysis.income_analysis.approved_incomes.mean }}</div>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-danger">Rejected:</small>
+                            <div>{{ analysis.income_analysis.rejected_incomes.mean }}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Loan Amount Analysis -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-money-bill-wave me-2"></i> Loan Amount Analysis</h5>
+                </div>
+                <div class="card-body">
+                    <h6>General Statistics:</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Mean:</strong> {{ analysis.loan_amount_analysis.all_amounts.mean }}</li>
+                        <li><strong>Std Dev:</strong> {{ analysis.loan_amount_analysis.all_amounts.std }}</li>
+                        <li><strong>Min:</strong> {{ analysis.loan_amount_analysis.all_amounts.min }}</li>
+                        <li><strong>Max:</strong> {{ analysis.loan_amount_analysis.all_amounts.max }}</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Approval/Reject Comparison:</h6>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="text-success">Approved:</small>
+                            <div>{{ analysis.loan_amount_analysis.approved_amounts.mean }}</div>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-danger">Rejected:</small>
+                            <div>{{ analysis.loan_amount_analysis.rejected_amounts.mean }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Categorical Analysis -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-venus-mars me-2"></i> Gender Analysis</h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis.gender_analysis %}
+                    {% for gender, count in analysis.gender_analysis.value_counts.items() %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ gender }}</span>
+                        <div>
+                            <span class="badge bg-secondary">{{ count }}</span>
+                            <span class="badge bg-success ms-1">{{ analysis.gender_analysis.approval_rates[gender] }}%</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted">No data available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="fas fa-heart me-2"></i> Marital Status Analysis</h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis.married_analysis %}
+                    {% for status, count in analysis.married_analysis.value_counts.items() %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ status }}</span>
+                        <div>
+                            <span class="badge bg-secondary">{{ count }}</span>
+                            <span class="badge bg-success ms-1">{{ analysis.married_analysis.approval_rates[status] }}%</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted">No data available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education and Property Area Analysis -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-graduation-cap me-2"></i> Education Level Analysis</h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis.education_analysis %}
+                    {% for education, count in analysis.education_analysis.value_counts.items() %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ education }}</span>
+                        <div>
+                            <span class="badge bg-secondary">{{ count }}</span>
+                            <span class="badge bg-success ms-1">{{ analysis.education_analysis.approval_rates[education] }}%</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted">No data available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-home me-2"></i> Property Area Analysis</h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis.property_area_analysis %}
+                    {% for area, count in analysis.property_area_analysis.value_counts.items() %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ area }}</span>
+                        <div>
+                            <span class="badge bg-secondary">{{ count }}</span>
+                            <span class="badge bg-success ms-1">{{ analysis.property_area_analysis.approval_rates[area] }}%</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted">No data available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Self Employed Analysis -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="fas fa-briefcase me-2"></i> Self Employed Analysis</h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis.self_employed_analysis %}
+                    {% for se, count in analysis.self_employed_analysis.value_counts.items() %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ se }}</span>
+                        <div>
+                            <span class="badge bg-secondary">{{ count }}</span>
+                            <span class="badge bg-success ms-1">{{ analysis.self_employed_analysis.approval_rates[se] }}%</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted">No data available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Credit History Analysis -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i> Credit History Analysis</h5>
+                </div>
+                <div class="card-body">
+                    {% if analysis.credit_history_analysis %}
+                    <ul class="list-unstyled">
+                        <li><strong>Mean:</strong> {{ analysis.credit_history_analysis.all_credit.mean }}</li>
+                        <li><strong>Std Dev:</strong> {{ analysis.credit_history_analysis.all_credit.std }}</li>
+                        <li><strong>Min:</strong> {{ analysis.credit_history_analysis.all_credit.min }}</li>
+                        <li><strong>Max:</strong> {{ analysis.credit_history_analysis.all_credit.max }}</li>
+                    </ul>
+                    <h6 class="mt-3">Approval/Reject Comparison:</h6>
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="text-success">Approved:</small>
+                            <div>{{ analysis.credit_history_analysis.approved_credit.mean }}</div>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-danger">Rejected:</small>
+                            <div>{{ analysis.credit_history_analysis.rejected_credit.mean }}</div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No data available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+    <!-- زر العودة -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('home') }}" class="btn btn-primary">
+            <i class="fas fa-home me-2"></i>العودة للصفحة الرئيسية
+        </a>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-12 mb-4">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">توزيع مبالغ القروض</h5>
-            </div>
-            <div class="card-body">
-                <div id="loan_amount_distribution"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">نسبة الموافقات حسب مستوى التعليم</h5>
-            </div>
-            <div class="card-body">
-                <div id="education_approval"></div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">تحليل الدخل المشترك</h5>
-            </div>
-            <div class="card-body">
-                <div id="coapplicant_analysis"></div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    // تحميل الرسوم البيانية
-    var plots = {{ plots|tojson }};
-    
-    Plotly.newPlot('approval_distribution', plots.approval_distribution.data, plots.approval_distribution.layout);
-    Plotly.newPlot('income_distribution', plots.income_distribution.data, plots.income_distribution.layout);
-    Plotly.newPlot('loan_amount_distribution', plots.loan_amount_distribution.data, plots.loan_amount_distribution.layout);
-    Plotly.newPlot('education_approval', plots.education_approval.data, plots.education_approval.layout);
-    Plotly.newPlot('coapplicant_analysis', plots.coapplicant_analysis.data, plots.coapplicant_analysis.layout);
-</script>
 {% endblock %} 
